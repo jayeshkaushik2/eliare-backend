@@ -1,0 +1,9 @@
+fastapi[standard]
+pydantic
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+motor
+passlib[bcrypt]
+celery[redis]
