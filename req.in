@@ -7,3 +7,4 @@ python-dotenv
 motor
 passlib[bcrypt]
 celery[redis]
+google-genai
