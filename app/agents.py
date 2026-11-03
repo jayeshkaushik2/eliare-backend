@@ -1,6 +1,6 @@
 from app.schemas.logs_schema import ErrorStatuses
+from app.settings import settings
 from google import genai
-from settings import settings
 from enum import Enum
 
 class AiAvailable(Enum):
@@ -9,17 +9,18 @@ class AiAvailable(Enum):
     CHATGPT = "chatgpt"
 
 # TODO need to make below store empty, currently set only for testing
-AI = {AiAvailable.gemini.value: None}
-AI_MODELS = {AiAvailable.gemini.value: ["gemini-flash-latest"]}
+AI = {AiAvailable.GEMINI.value: None}
+AI_MODELS = {AiAvailable.GEMINI.value: ["gemini-flash-latest"]}
 
 if settings.GEMINI_API_KEY:
     gemini = genai.Client(api_key=settings.GEMINI_API_KEY)
-    AI[AiAvailable.gemini.value] = gemini
-    AI_MODELS[AiAvailable.gemini.value] = ["gemini-flash-latest"]
+    AI[AiAvailable.GEMINI.value] = gemini
+    AI_MODELS[AiAvailable.GEMINI.value] = ["gemini-flash-latest"]
 
 # TODO To be added in future for better results
 if settings.CLAUDE_API_KEY:
-    AI[AiAvailable.CLAUDE] = None
+    AI[AiAvailable.CLAUDE.value] = None
+    AI_MODELS[AiAvailable.CLAUDE.value] = ["claude-3-5-sonnet"]
 
 class Agent:
     def __init__(self, ai: str, model: str):
@@ -34,6 +35,12 @@ class Agent:
         self.ai = AI[ai]
         self.model = model
         print(f"AI {self.ai} selected, with model name {self.model}")
+
+    def __str__(self):
+        return f"Agent(ai={self.ai_name}, model={self.model})"
+
+    def __repr__(self):
+        return f"Agent(ai={self.ai_name}, model={self.model})"
 
     def gen_context(self, *args, **kwargs):
         return """Act as a expert software engineer with deep knowledge of Python, Django, and Problem solving.

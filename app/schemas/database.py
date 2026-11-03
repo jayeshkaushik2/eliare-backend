@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from ..settings import settings
+from pymongo import MongoClient
 
 # ------------------- Mongo DB connect -------------------
 
@@ -12,6 +13,7 @@ DB_NAME = settings.MONGO_DB_NAME
 class MongoDBContainer:
     client: AsyncIOMotorClient = None
     db: AsyncIOMotorDatabase = None
+    sync_db: MongoClient = None
 
 db_container = MongoDBContainer()
 
@@ -27,3 +29,7 @@ async def lifespan(*args, **kwargs):
 
 def get_mongo_db() -> AsyncIOMotorDatabase:
     return db_container.db
+
+
+# sync connection to mongo db
+db_container.sync_db = MongoClient(MONGO_URI)[DB_NAME]

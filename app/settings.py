@@ -5,6 +5,7 @@ import os
 load_dotenv()
 
 class Settings:
+    VERSION = "1.0.0"
     DEBUG = os.getenv("DEBUG", "False")
     MONGO_URI = os.getenv("MONGO_URI")
     MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
