@@ -66,21 +66,21 @@ Rules:
     3. Do not add multiple comments, use very minimal and to the point comments only which are necessary."""
 
     def fix_log_error(self, error_log):
-        error_dt = error_log.error_dt
-        message = error_log.message
-        error_json = error_log.error_json
+        error_dt = error_log["error_dt"]
+        message = error_log["message"]
+        error_json = error_log["error_json"]
+        error_log_id = error_log["_id"]
         repositary_path = "/code"
-        error_log_id = error_log._id
 
         # generating context
         context = self.gen_context().format(
-            error_dt,
-            message,
-            error_json,
-            repositary_path,
-            error_log_id,
+            error_dt=error_dt,
+            message=message,
+            error_json=error_json,
+            repositary_path=repositary_path,
+            error_log_id=error_log_id,
         )
-        print(f"Context generated: {context}")
+        print(f"Context generated:\n{context}")
         return 
         # TODO need to use below code later, while testing
         response = client.models.generate_content(
