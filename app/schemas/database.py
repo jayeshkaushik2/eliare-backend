@@ -5,7 +5,7 @@ from ..settings import settings
 
 # ------------------- Mongo DB connect -------------------
 
-MONGO_URI = settings.MONGO_URI 
+MONGO_URI = settings.MONGO_URI
 DB_NAME = settings.MONGO_DB_NAME
 
 # A global dictionary or class can hold the client container

@@ -40,3 +40,4 @@ Phase 4: Real-time Monitoring & ContainerizationFocus: Docker, multi-container o
 
 Phase 5: Cloud Deployment & DevOps (AWS)Focus: Cloud infrastructure, IaC, CI/CD, and monitoring.Infrastructure as Code (Terraform): Provision AWS resources programmatically: RDS PostgreSQL, ElastiCache Redis, and ECS (Fargate) clusters.Deploy to AWS ECS: Push your Docker images to AWS ECR and deploy them onto ECS Fargate behind an Application Load Balancer (ALB).Set Up CI/CD Pipeline: Build a GitHub Actions workflow that runs automated tests (pytest), builds Docker containers, and deploys updates to AWS on every code push.Add Observability: Add OpenTelemetry tracing and Prometheus/Grafana metrics to track API latency, log processing throughput, and worker queues.
 
+Phase 6: eliare will also make sure that its tasks and functoinalities are working properly if any issue occur, the eliare should itself.
