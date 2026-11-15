@@ -12,9 +12,11 @@ class ErrorStatuses(Enum):
     SUB_COMPLETED = "SUB_COMPLETED"
     COMPLETED = "COMPLETED"
 
+
 class ErrorRespStatus(Enum):
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
+
 
 class ErrorLogCreate(BaseModel):
     message: str
@@ -22,9 +24,10 @@ class ErrorLogCreate(BaseModel):
     error_dt: datetime | None = None
     status: str | None = None
 
+
 class ErrorLogCreateResp(BaseModel):
     status_code: str
-    message: str
+
 
 class ErrorLogDetail(BaseModel):
     id: str
@@ -32,7 +35,9 @@ class ErrorLogDetail(BaseModel):
     error_dt: datetime
     status: str
 
+
 ErrorLogsList = list[ErrorLogDetail]
+
 
 class GitPrCreate(BaseModel):
     error_log_id: str

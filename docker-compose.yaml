@@ -1,6 +1,7 @@
 services:
   eliare1.0:
     image: 673396344887.dkr.ecr.ap-southeast-2.amazonaws.com/eliare:1.0
+    container_name: eliare1.0
     ports:
       - 8000:8000
     environment:
@@ -33,7 +34,24 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_DB_USER}
       ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_DB_PASSWORD}
 
+  kafka:
+    image: confluentinc/cp-kafka:7.8.3
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      CLUSTER_ID: "kafka-cluster"
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    volumes:
+      - kafka-data:/opt/kafka/logs
+
 volumes:
   mongo-data:
     driver: local
-    
+  kafka-data:
+    driver: local

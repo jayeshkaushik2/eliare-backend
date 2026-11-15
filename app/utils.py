@@ -1,5 +1,16 @@
 from app.schemas.logs_schema import *
-from motor.motor_asyncio import AsyncIOMotorDatabase 
+from motor.motor_asyncio import AsyncIOMotorDatabase
+from kafka import KafkaProducer, KafkaConsumer
+import uuid
+from app.settings import settings
+import json
+from app.constants import KafkaTopics
+import json
+
+bootstrap_servers = settings.KAFKA_BOOTSTRAP_SERVERS
+
+producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
+# consumer = KafkaConsumer(topic, bootstrap_servers=bootstrap_servers)
 
 
 def create_error_log_api_handler(db: AsyncIOMotorDatabase, payload: ErrorLogCreate):
@@ -18,7 +29,16 @@ def create_error_log_api_handler(db: AsyncIOMotorDatabase, payload: ErrorLogCrea
         return ErrorRespStatus.FAILED.value, str(e)
 
 
-
-
-def write_log_to_cache():
-    ...
+def send_error_log_to_kafka(data: dict):
+    topic = KafkaTopics.ERROR_LOGS
+    future = producer.send(
+        topic=topic,
+        value=json.dumps(data).encode(encoding="utf-8"),
+    )
+    result = None
+    try:
+        result = future.get(timeout=60)
+    except Exception as e:
+        print("Unable to send error logs", str(e))
+    finally:
+        return result

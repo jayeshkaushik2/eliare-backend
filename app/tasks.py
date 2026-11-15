@@ -40,8 +40,8 @@ def task_process_pending_error_logs(n: int = 10):
 
 
 @app.task
-def task_process_failed_error_logs(n: int = 10):
-    ...
+def task_process_failed_error_logs(n: int = 10): ...
+
 
 @app.task
 def task_process_sub_completed_error_logs(n: int = 10):

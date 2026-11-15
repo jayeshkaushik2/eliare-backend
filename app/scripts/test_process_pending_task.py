@@ -5,6 +5,7 @@ from app.tasks import *
 
 from app.tasks import task_process_pending_error_logs
 
+
 async def run_test():
     # Properly use the asynccontextmanager with 'async with'
     async with lifespan():
